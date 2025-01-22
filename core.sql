@@ -114,3 +114,15 @@ INNER JOIN directors ON directors.id = films.director_id
 WHERE films.score >= 8
 
 --vi
+--Get writer email for films with score 8+
+SELECT writers.email
+FROM writers
+INNER JOIN films ON writers.id = films.writer_id
+WHERE films.score >= 8
+
+--Get star names where actor starred at the age under 30, also displays the age when they starred
+SELECT stars.name, films.year - DATE_PART('year', stars.birthdate::DATE) AS age
+FROM stars
+INNER JOIN films ON films.star_id = stars.id
+WHERE films.year - DATE_PART('year', stars.birthdate::DATE) < 30
+ORDER BY age ASC
